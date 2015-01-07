@@ -2,7 +2,9 @@
   <a href="#" class="btn btn-primary btn-primary">Create new blog</a>
 
   <ul>
-    <li ng-repeat="x in awesomeThings" >{{x}}</li>
-    {{ main.personal }}
+    <li ng-repeat="blog in blogs">
+      {{ blog.name }}
+    </li>
   </ul>
+  {{ main.count }}
 </div>
