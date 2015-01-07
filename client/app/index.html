@@ -25,19 +25,19 @@
       <div class="header">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a ng-href="#">Home</a></li>
-          <li><a ng-href="#">About</a></li>
-          <li><a ng-href="#">Contact</a></li>
+          <li><a ng-href="#">Archive</a></li>
         </ul>
         <h3 class="text-muted">client</h3>
       </div>
 
-      <div ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+      <ui-view></ui-view>
 
       <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        <p>microblog v0.0.1 |
+          <a href="https://github.com/Clemmy/microblog">GitHub</a></p>
       </div>
     </div>
-    
+
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
