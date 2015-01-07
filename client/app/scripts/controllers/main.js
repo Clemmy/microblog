@@ -24,7 +24,6 @@ angular.module('clientApp')
       author : 'Jimmy Dong',
       posts : [ post, post, post ]
     };
-    console.log(blog1);
     $scope.blogs = [ blog1, blog2, blog3 ];
     this.count = 3;
   });

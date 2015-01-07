@@ -1,1 +1,11 @@
-archive
+<ul>
+  <li ng-repeat="blog in blogs">
+    {{ blog.name }}
+    {{ - blog.author }}
+    <ul>
+      <li ng-repeat="post in blog.posts">
+        {{ post.content }}
+      </li>
+    </ul>
+  </li>
+</ul>

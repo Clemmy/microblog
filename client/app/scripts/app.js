@@ -12,7 +12,7 @@ angular
   .config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
-      $urlRouterProvider.otherwise('err');
+      $urlRouterProvider.otherwise('/');
 
       $stateProvider
         .state('hometemp', {
@@ -31,6 +31,10 @@ angular
           templateUrl: 'views/main.html',
           controller: 'MainCtrl',
           controllerAs: 'main'
+        })
+        .state('archive', {
+          url: '/archive',
+          templateUrl: 'views/archive.html'
         });
     }
   ]
