@@ -30,10 +30,11 @@ angular
           template: '<ui-view/>'
         })
         .state('blogs.blog', {
-          url: '/:blogName',
-          templateUrl: 'views/blogs.blog.html',
-          controller: 'BlogCtrl as blogCtrl'
-        });
+          url: '/:blogName/posts',
+          templateUrl: 'views/blogs.blog.posts.html',
+          controller: 'BlogPostsCtrl as blogPostsCtrl'
+        })
+      ;
 
 
     }
