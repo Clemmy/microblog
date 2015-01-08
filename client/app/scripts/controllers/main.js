@@ -5,7 +5,7 @@ angular.module('clientApp')
 
     var post = function() {
       return {
-        title : 'mypost',
+        title : Math.random().toString(36).substring(7),
         lastEdited : new Date(),
         content : 'blah blah blah I am a test post.'
       };
