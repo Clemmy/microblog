@@ -36,6 +36,8 @@ angular
           url: '/archive',
           templateUrl: 'views/archive.html'
         });
+        
+
     }
   ]
 );

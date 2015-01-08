@@ -30,5 +30,9 @@ angular.module('clientApp')
     $rootScope.blogs = [ blog1, blog2, blog3 ];
     this.count = 3;
 
-
+    this.newBlog = {}; //initializes //TODO: createBlogController pls
+    this.createBlog = function() {
+      $rootScope.blogs.push(this.newBlog);
+      this.newBlog = {}; //resets
+    };
   });

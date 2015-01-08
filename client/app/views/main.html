@@ -2,17 +2,18 @@
   <a href="#" class="btn btn-primary btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
     Create new blog
   </a>
-
+  <br>
   <div class="collapse" id="collapseExample">
-    <form name="reviewForm">
+    <br>
+    <form name="reviewForm" ng-submit="main.createBlog()">
       <fieldset class="form-group">
-        <input ng-model="newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog." title="BlogName" />
+        <input ng-model="main.newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog." title="BlogName" />
       </fieldset>
       <fieldset class="form-group">
-        <textarea ng-model="newBlog.body" class="form-control" placeholder="Write a short description of the blog." title="BlogDescription"></textarea>
+        <textarea ng-model="main.newBlog.body" class="form-control" placeholder="Write a short description of the blog." title="BlogDescription"></textarea>
       </fieldset>
       <fieldset class="form-group">
-        <input ng-model="newBlog.author" type="text" class="form-control" placeholder="Enter your name." title="BlogAuthor" />
+        <input ng-model="main.newBlog.author" type="text" class="form-control" placeholder="Enter your name." title="BlogAuthor" />
       </fieldset>
       <fieldset class="form-group">
         <input type="submit" class="btn btn-primary pull-right" value="Create!" />
@@ -20,10 +21,13 @@
     </form>
   </div>
 
-  <ul>
-    <li ng-repeat="blog in blogs">
-      {{ blog.name }}
-      {{ blog.posts.length }}
+  <br>
+  <ul class="list-group">
+    <li ng-repeat="blog in blogs" class="list-group-item">
+      <span class="badge">{{ blog.posts.length }}</span>
+      <a ng-href="{{ blog.name }}">
+        {{ blog.name }}
+      </a>
     </li>
   </ul>
   {{ main.count }}
