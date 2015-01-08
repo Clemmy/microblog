@@ -27,7 +27,7 @@
           <li class="active"><a ng-href="#/">Home</a></li>
           <li><a ng-href="#/archive">Archive</a></li>
         </ul>
-        <h3 class="text-muted">microblog</h3>
+        <a ng-href="#/"><h3 class="text-muted">microblog</h3></a>
       </div>
 
       <ui-view></ui-view>
@@ -60,9 +60,11 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+    <!--controllers-->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/blog.controller.js"></script>
+    <!--endcontrollers-->
+
 </body>
 </html>

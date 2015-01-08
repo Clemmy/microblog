@@ -5,15 +5,15 @@
   <br>
   <div class="collapse" id="collapseExample">
     <br>
-    <form name="reviewForm" ng-submit="main.createBlog()">
+    <form name="reviewForm" ng-submit="mainCtrl.createBlog()">
       <fieldset class="form-group">
-        <input ng-model="main.newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog." title="BlogName" />
+        <input ng-model="mainCtrl.newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog." title="BlogName" />
       </fieldset>
       <fieldset class="form-group">
-        <textarea ng-model="main.newBlog.body" class="form-control" placeholder="Write a short description of the blog." title="BlogDescription"></textarea>
+        <textarea ng-model="mainCtrl.newBlog.body" class="form-control" placeholder="Write a short description of the blog." title="BlogDescription"></textarea>
       </fieldset>
       <fieldset class="form-group">
-        <input ng-model="main.newBlog.author" type="text" class="form-control" placeholder="Enter your name." title="BlogAuthor" />
+        <input ng-model="mainCtrl.newBlog.author" type="text" class="form-control" placeholder="Enter your name." title="BlogAuthor" />
       </fieldset>
       <fieldset class="form-group">
         <input type="submit" class="btn btn-primary pull-right" value="Create!" />
@@ -25,10 +25,9 @@
   <ul class="list-group">
     <li ng-repeat="blog in blogs" class="list-group-item">
       <span class="badge">{{ blog.posts.length }}</span>
-      <a ng-href="{{ blog.name }}">
+      <a ng-href="{{ '#/blogs/' + blog.name }}">
         {{ blog.name }}
       </a>
     </li>
   </ul>
-  {{ main.count }}
 </div>

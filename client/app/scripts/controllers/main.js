@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('MainCtrl', function ($rootScope) {
+  .controller('MainCtrl',['$rootScope', function ($rootScope) {
 
     var post = {
       content : 'blah blah blah I am a test post.'
@@ -28,11 +28,11 @@ angular.module('clientApp')
       posts : [ post, post, post ]
     };
     $rootScope.blogs = [ blog1, blog2, blog3 ];
-    this.count = 3;
 
-    this.newBlog = {}; //initializes //TODO: createBlogController pls
+    this.newBlog = {}; //initializes //TODO: createBlogController pls & validate (remember ng-dirty etc)
     this.createBlog = function() {
       $rootScope.blogs.push(this.newBlog);
       this.newBlog = {}; //resets
     };
-  });
+
+  }]);
