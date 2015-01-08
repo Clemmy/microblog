@@ -34,6 +34,12 @@ angular
           templateUrl: 'views/blogs.blog.posts.html',
           controller: 'BlogPostsCtrl as blogPostsCtrl'
         })
+        .state('blogs.blog.post', {
+          url: '/:postTitle',
+          //templateUrl: 'views/blogs.blog.posts.post.html',
+          template: '<p>hi</p>',
+          controller: 'PostCtrl as postCtrl'
+        })
       ;
 
 

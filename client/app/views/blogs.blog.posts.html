@@ -1,6 +1,6 @@
 <ul>
   <li ng-repeat="post in blogs[blogPostsCtrl.blogName].posts | orderBy: '-lastEdited'">
-    {{ post.title }}
+    <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post.title }}"> {{ post.title }} </a>
 
     {{ post.lastEdited.getMonth()+1 + '/' + post.lastEdited.getDate() + '/' + post.lastEdited.getFullYear() }}
 
