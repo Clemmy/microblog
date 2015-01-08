@@ -27,11 +27,12 @@ angular.module('clientApp')
       author : 'Jimmy Dong',
       posts : [ post, post, post ]
     };
-    $rootScope.blogs = [ blog1, blog2, blog3 ];
+    $rootScope.blogs = { blog1:blog1, blog2:blog2, blog3:blog3 };
 
     this.newBlog = {}; //initializes //TODO: createBlogController pls & validate (remember ng-dirty etc)
     this.createBlog = function() {
-      $rootScope.blogs.push(this.newBlog);
+      //$rootScope.blogs.push(this.newBlog);
+      $rootScope.blogs[this.newBlog.name] = this.newBlog; //TODO: ensure no conflicting name
       this.newBlog = {}; //resets
     };
 
