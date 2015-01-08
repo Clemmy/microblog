@@ -25,7 +25,7 @@
   <ul class="list-group">
     <li ng-repeat="blog in blogs" class="list-group-item">
       <span class="badge">{{ blog.posts.length }}</span>
-      <a ng-href="{{ '#/blogs/' + blog.name }}">
+      <a ng-href="{{ '#/blogs/' + blog.name + '/posts' }}">
         {{ blog.name }}
       </a>
     </li>

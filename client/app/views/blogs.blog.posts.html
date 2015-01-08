@@ -1,0 +1,8 @@
+<ul>
+  <li ng-repeat="post in blogs[blogPostsCtrl.blogName].posts | orderBy: '-lastEdited'">
+    {{ post.title }}
+
+    {{ post.lastEdited.getMonth()+1 + '/' + post.lastEdited.getDate() + '/' + post.lastEdited.getFullYear() }}
+
+  </li>
+</ul>

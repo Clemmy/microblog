@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('BlogCtrl', ['$stateParams', function ($stateParams) {
+  .controller('BlogPostsCtrl', ['$stateParams', function ($stateParams) {
 
-    this.testVar = $stateParams.blogName;
+    this.blogName = $stateParams.blogName;
 
   }]);
