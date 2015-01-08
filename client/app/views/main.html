@@ -1,11 +1,11 @@
 <div>
-  <a href="#" class="btn btn-primary btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  <a href="#" class="btn btn-primary btn-primary" type="button" data-toggle="collapse" data-target="#collapseCreateBlogForm" aria-expanded="false" aria-controls="collapseCreateBlogForm">
     Create new blog
   </a>
   <br>
-  <div class="collapse" id="collapseExample">
+  <div class="collapse" id="collapseCreateBlogForm">
     <br>
-    <form name="reviewForm" ng-submit="mainCtrl.createBlog()">
+    <form name="createNewBlogForm" ng-submit="mainCtrl.createBlog()">
       <fieldset class="form-group">
         <input ng-model="mainCtrl.newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog." title="BlogName" />
       </fieldset>

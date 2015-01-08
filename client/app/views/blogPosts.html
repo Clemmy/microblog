@@ -1,3 +1,28 @@
+<a href="#" class="btn btn-primary btn-primary" type="button" data-toggle="collapse" data-target="#collapseCreateBlogPostForm" aria-expanded="false" aria-controls="collapseCreateBlogPostForm">
+  Write new post
+</a>
+
+<br>
+<div class="collapse" id="collapseCreateBlogPostForm">
+  <br>
+  <form name="createNewPostForm" ng-submit="blogPostsCtrl.createPost()">
+    <fieldset class="form-group">
+      <input ng-model="blogPostsCtrl.newPost.title" type="text" class="form-control" placeholder="Enter a title for the post." title="PostTitle" />
+    </fieldset>
+    <fieldset class="form-group">
+      <textarea ng-model="blogPostsCtrl.newPost.content" class="form-control" placeholder="Write content here! There is a 160 character limit." title="PostContent" maxlength="160"></textarea>
+    </fieldset>
+    <fieldset class="form-group">
+      <input type="file" name="pic" accept="image/*">
+    </fieldset>
+    <fieldset class="form-group">
+      <input type="submit" class="btn btn-primary pull-right" value="Post!" />
+    </fieldset>
+  </form>
+</div>
+
+<br>
+
 <ul>
   <li ng-repeat="post in blogs[blogPostsCtrl.blogName].posts | orderBy: '-lastEdited'">
     <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post.title }}"> {{ post.title }} </a>
