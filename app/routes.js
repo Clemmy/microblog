@@ -10,6 +10,10 @@ module.exports = function (app) {
     // handle things like api calls
     // authentication routes
 
+    app.post('/api/upload/image', function(req, res) {
+        console.log('success?');
+    });
+
     // GET get all blogs
     app.get('/api/blogs', function (req, res, next) {
         Blog.find(function (err, blogs) {

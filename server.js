@@ -1,9 +1,11 @@
 // modules =================================================
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose = require('mongoose');
+app.use(cors());
 
 // configuration ===========================================
 var port = process.env.PORT || 10000;

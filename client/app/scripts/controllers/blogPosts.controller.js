@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
-
-
+  .controller('BlogPostsCtrl', ['$stateParams', '$scope', '$upload', 'posts', function ($stateParams, $scope, $upload, posts) {
 
     this.blogName = $stateParams.blogName;
     $scope.posts = posts.posts;
@@ -19,9 +17,22 @@ angular.module('clientApp')
       posts.removePostFromIdAndBlogName(postId, this.blogName);
     }
 
-    $scope.onFileSelect = function(data) {
-      console.log(data);
-    }
+    $scope.onFileSelect = function($files) {
+      //$files: an array of files selected, each file has name, size, and type.
+      for (var i = 0; i < $files.length; i++) {
+        var file = $files[i];
+        $scope.upload = $upload.upload({
+          url: '/api/upload/image',
+          data: {myObj: $scope.myModelObj},
+          file: file,
+        }).progress(function(evt) {
+          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+        }).success(function(data, status, headers, config) {
+          // file is uploaded successfully
+          console.log(data);
+        });
+      }
+    };
 
   }]);
 
