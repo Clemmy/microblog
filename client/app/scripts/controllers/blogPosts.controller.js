@@ -3,6 +3,8 @@
 angular.module('clientApp')
   .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
 
+
+
     this.blogName = $stateParams.blogName;
     $scope.posts = posts.posts;
 
@@ -15,6 +17,10 @@ angular.module('clientApp')
 
     this.removePost = function(postId) {
       posts.removePostFromIdAndBlogName(postId, this.blogName);
+    }
+
+    $scope.onFileSelect = function(data) {
+      console.log(data);
     }
 
   }]);

@@ -2,6 +2,7 @@
   Write new post
 </a>
 
+<!--TODO: Move outside of this file-->
 <br>
 <div class="collapse" id="collapseCreateBlogPostForm">
   <br>
@@ -13,7 +14,7 @@
       <textarea ng-model="blogPostsCtrl.newPost.content" class="form-control" placeholder="Write content here! There is a 160 character limit." title="PostContent" maxlength="160"></textarea>
     </fieldset>
     <fieldset class="form-group">
-      <input type="file" name="pic" accept="image/*">
+      <input type="file" accept="image/*" ng-file-select="onFileSelect($files)">
     </fieldset>
     <fieldset class="form-group">
       <input type="submit" class="btn btn-primary pull-right" value="Post!" />

@@ -46,6 +46,9 @@ angular
           resolve : {
             requestedPost : ['posts', '$stateParams', function(posts, $stateParams) {
               return posts.getPostFromIdAndBlogName($stateParams.postId, $stateParams.blogName);
+            }],
+            blogAuthor : ['blogs', '$stateParams', function(blogs, $stateParams) {
+              return blogs.getBlogFromName($stateParams.blogName);
             }]
           }
         })
@@ -66,6 +69,12 @@ angular
       }
       throw new Error("Unable to locate requested blog by name");
     };
+
+    o.getBlogFromName = function(name) {
+      var blogId = o.getObjectIdFromName(name);
+      return $http.get('/api/blogs/'+blogId).success(function(data) {
+      })
+    }
 
     o.getAll = function() {
       return $http.get('/api/blogs').success(function(data){
