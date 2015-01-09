@@ -27,7 +27,13 @@ angular
         })
         .state('archive', {
           url: '/archive',
-          templateUrl : 'app/views/archive.html'
+          templateUrl : 'app/views/archive.html',
+          controller : 'ArchiveCtrl as archCtrl',
+          resolve : {
+            blogsPromise : ['blogs', function(blogs){
+              return blogs.getAllWithPopulatedPosts();
+            }]
+          }
         })
         .state('blogPosts', {
           url : '/blogs/:blogName/posts',
@@ -81,6 +87,12 @@ angular
         angular.copy(data, o.blogs);
       });
     };
+
+    o.getAllWithPopulatedPosts = function() {
+      return $http.get('/api/blogs/all').success(function(data){
+        // do nothing
+      });
+    }
 
     o.create = function(blog) {
       return $http.post('/api/blogs', blog).success(function(data){

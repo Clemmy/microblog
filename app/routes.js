@@ -24,6 +24,16 @@ module.exports = function (app) {
         });
     });
 
+    // GET get all blogs with populated posts
+    app.get('/api/blogs/all', function (req, res, next) {
+        Blog.find(function (err, blogs) {
+            if (err) {
+                return next(err);
+            }
+            res.json(blogs); //TODO: use promises/waterfall here
+        });
+    });
+
     // POST create a blog
     app.post('/api/blogs', function (req, res, next) {
         var blog = new Blog();
