@@ -16,13 +16,31 @@ module.exports = function(app) {
         res.json({ message: 'hooray! welcome to our api!' });
     });
 
+    // GET get all blogs
     app.get('/api/blogs', function(req, res, next) {
         Blog.find(function(err, blogs){
-            if(err){ return next(err); }
-
+            if (err) {
+                return next(err);
+            }
             res.json(blogs);
         });
     });
+
+    // POST create a blog
+    app.post('/api/blogs', function(req, res, next) {
+        var blog = new Blog();
+        blog.name = req.body.name;
+        blog.description = req.body.description;
+        blog.author = req.body.author;
+        blog.posts = [];
+        blog.save(function(err, post) {
+            if (err) {
+                return next(err);
+            }
+            res.json(blog);
+        });
+    });
+
 
 
 
