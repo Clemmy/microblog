@@ -1,22 +1,17 @@
-// server.js
-
 // modules =================================================
-var express        = require('express');
-var app            = express();
-var bodyParser     = require('body-parser');
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var mongoose = require('mongoose');
 
 // configuration ===========================================
+var port = process.env.PORT || 10000;
 
-// config files
 var db = require('./config/db');
-
-// set our port
-var port = process.env.PORT || 8080;
-
-// connect to our mongoDB database
-// (uncomment after you enter in your own credentials in config/db.js)
-// mongoose.connect(db.url);
+mongoose.connect(db.url);
+require('./models/Blog');
+require('./models/Post');
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -35,14 +30,9 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/client'));
 
 // routes ==================================================
-require('./app/routes')(app); // configure our routes
+require('./app/routes')(app); // configure our api routes
 
 // start app ===============================================
-// startup our app at http://localhost:8080
 app.listen(port);
-
-// shoutout to the user
 console.log('Magic happens on port ' + port);
-
-// expose app
 exports = module.exports = app;
