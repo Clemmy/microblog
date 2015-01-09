@@ -17,12 +17,12 @@ angular
       $stateProvider
         .state('home', {
           url: '/', //temp change to '/' when i remove other state
-          templateUrl : 'views/main.html',
+          templateUrl : 'app/views/main.html',
           controller : 'MainCtrl as mainCtrl'
         })
         .state('archive', {
           url: '/archive',
-          templateUrl : 'views/archive.html'
+          templateUrl : 'app/views/archive.html'
         })
         //.state('blogs', {
         //  abstract : true,
@@ -31,12 +31,12 @@ angular
         //})
         .state('blogPosts', {
           url : '/blogs/:blogName/posts',
-          templateUrl : 'views/blogPosts.html',
+          templateUrl : 'app/views/blogPosts.html',
           controller : 'BlogPostsCtrl as blogPostsCtrl'
         })
         .state('post', {
           url : '/blogs/:blogName/posts/:postTitle',
-          templateUrl : 'views/post.html',
+          templateUrl : 'app/views/post.html',
           controller : 'PostCtrl as postCtrl'
         })
       ;
