@@ -10,12 +10,12 @@ var port = process.env.PORT || 10000;
 
 var db = require('./config/db');
 mongoose.connect(db.url);
-var db = mongoose.connection;
-db.on('error', function (err) {
-    console.log('connection error', err);
+var connection = mongoose.connection;
+connection.on('error', function (err) {
+    console.log('Connection error: Could not establish connection to MongoDB.', err);
 });
-db.once('open', function () {
-    console.log('connected.');
+connection.once('open', function () {
+    console.log('Connected to MongoDB.');
 });
 
 require('./models/Blog');
@@ -42,5 +42,5 @@ require('./app/routes')(app); // configure our api routes
 
 // start app ===============================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Running on port ' + port);
 exports = module.exports = app;
