@@ -115,6 +115,13 @@ angular
       });
     }
 
+    o.removePostFromIdAndBlogName = function(postId, blogName) {
+      var blogId = blogs.getObjectIdFromName(blogName);
+      $http.delete('/api/blogs/'+blogId+'/posts/'+postId).success(function(data){
+        o.posts.pop(data);
+      });
+    };
+
     return o;
   }])
 ;

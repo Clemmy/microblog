@@ -109,7 +109,6 @@ module.exports = function (app) {
     // DELETE deletes a post by id
     app.delete('/api/blogs/:blog/posts/:post', function (req, res) {
         Post.remove({_id: req.params.post}, function (err, post) {
-            console.log(req.params.post);
             if (err)
                 res.send(err);
             Blog.findById(req.params.blog, function (err, blog) {

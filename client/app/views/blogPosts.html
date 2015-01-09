@@ -24,10 +24,10 @@
 <br>
 
 <ul>
-  <!--<li ng-repeat="post in blogs[blogPostsCtrl.blogName].posts | orderBy: '-lastEdited'">-->
   <li ng-repeat="post in posts | orderBy: '-lastEdited'">
-    <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post._id }}"> {{ post.title }} </a>
-
-    {{ post.lastEdited.getMonth()+1 + '/' + post.lastEdited.getDate() + '/' + post.lastEdited.getFullYear() }}
+    <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post._id }}"> {{ post.title }} - {{ post.lastEdited |  date:'yyyy-MM-dd' }}</a>
+    <a ng-click="blogPostsCtrl.removePost(post._id)">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right:7px; margin-top:2px"></span>
+    </a>
   </li>
 </ul>
