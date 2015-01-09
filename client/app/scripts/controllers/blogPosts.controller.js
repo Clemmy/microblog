@@ -6,7 +6,6 @@ angular.module('clientApp')
     this.blogName = $stateParams.blogName;
     $scope.posts = posts.posts;
 
-
     this.newPost = {};
     this.createPost = function() {
       this.newPost.lastEdited = new Date();

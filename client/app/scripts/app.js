@@ -40,9 +40,14 @@ angular
           }
         })
         .state('post', {
-          url : '/blogs/:blogName/posts/:postTitle',
+          url : '/blogs/:blogName/posts/:postId',
           templateUrl : 'app/views/post.html',
-          controller : 'PostCtrl as postCtrl'
+          controller : 'PostCtrl as postCtrl',
+          resolve : {
+            requestedPost : ['posts', '$stateParams', function(posts, $stateParams) {
+              return posts.getPostFromIdAndBlogName($stateParams.postId, $stateParams.blogName);
+            }]
+          }
         })
       ;
     }
@@ -50,7 +55,7 @@ angular
 
   .factory('blogs', ['$http', function($http){
     var o = {
-      blogs: []
+      blogs : []
     };
 
     o.getAll = function() {
@@ -95,6 +100,13 @@ angular
         o.posts.push(data);
       });
     };
+
+    o.getPostFromIdAndBlogName = function(postId, blogName) {
+      var blogId = blogs.getObjectIdFromName(blogName);
+      return $http.get('/api/blogs/'+blogId+'/posts/'+postId).success(function(data){
+        // do nothing in success callback
+      });
+    }
 
     return o;
   }])

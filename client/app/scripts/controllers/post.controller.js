@@ -1,26 +1,10 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('PostCtrl', ['$stateParams', '$scope', 'blogs', function ($stateParams, $scope, blogs) {
+  .controller('PostCtrl', ['$stateParams', '$scope', 'requestedPost', function ($stateParams, $scope, requestedPost) {
 
-    //var getArrayOfMatchingPosts = function(titleToMatch) {
-    //
-    //  var matches = $rootScope.blogs[$stateParams.blogName].posts.filter( function (postInBlog) {
-    //    return postInBlog.title === titleToMatch;
-    //  });
-    //  return matches;
-    //};
-    //
-    //this.postTitle = $stateParams.postTitle;
-    //
-    //if (getArrayOfMatchingPosts(this.postTitle).length !== 1) {
-    //  throw new Error('Unexpected array length.');
-    //}
-    //
-    //this.post =  getArrayOfMatchingPosts(this.postTitle)[0];
-    //this.author = $rootScope.blogs[$stateParams.blogName].author;
-
-
-
+    $scope.postTitle = requestedPost.data.title;
+    $scope.postContent = requestedPost.data.content;
+    $scope.postLastEdited = requestedPost.data.lastEdited;
   }]);
 
