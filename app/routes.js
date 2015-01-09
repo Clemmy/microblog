@@ -10,13 +10,6 @@ module.exports = function(app) {
     // handle things like api calls
     // authentication routes
 
-
-    app.get('/api/nerds', function(req, res) {
-        //res.send('hey');
-        //res.end();
-        res.json({ message: 'hooray! welcome to our api!' });
-    });
-
     // GET get all blogs
     app.get('/api/blogs', function(req, res, next) {
         Blog.find(function(err, blogs){

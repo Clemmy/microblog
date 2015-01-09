@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('BlogPostsCtrl', ['$stateParams', '$rootScope', function ($stateParams, $rootScope) {
+  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
 
     this.blogName = $stateParams.blogName;
+    $scope.posts = posts.posts;
 
-    //form stuff //TODO refactor the area under this
+
     this.newPost = {};
     this.createPost = function() {
       this.newPost.lastEdited = new Date();
