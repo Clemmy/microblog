@@ -62,7 +62,6 @@ module.exports = function(app) {
         post.title = req.body.title;
         post.content = req.body.content;
         post.lastEdited = new Date();
-        //post.blog = { type : req.blog._id };
         post.blog = req.blog; // adds reference
 
         post.save(function(err, post){
@@ -80,7 +79,7 @@ module.exports = function(app) {
     });
 
     // GET get all posts
-    app.get('/api/blogs/:blog/posts', function(req, res, next) {
+    app.get('/api/blogs/:blog/posts', function(req, res) {
         req.blog.populate('posts', function(err, posts) {
             res.json(req.blog.posts);
         });
@@ -105,6 +104,22 @@ module.exports = function(app) {
     // GET get a post by id
     app.get('/api/blogs/:blog/posts/:post', function(req, res) {
         res.json(req.post);
+    });
+
+    // DELETE deletes a post by id
+    app.delete('/api/blogs/:blog/posts/:post', function(req, res) {
+        Post.remove({
+            _id: req.params.post
+        }, function(err, post) {
+            if (err)
+                res.send(err);
+            Blog.findById(req.params.blog, function(err, blog) {
+                blog.posts.pull(req.params.post);
+                blog.save();
+            });
+
+            res.json({ message: 'Successfully deleted post' });
+        });
     });
 
     // frontend routes =========================================================
