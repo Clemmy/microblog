@@ -80,11 +80,14 @@ module.exports = function(app) {
 
     // GET get all posts
     app.get('/api/blogs/:blog/posts', function(req, res, next) {
-        Post.find(function(err, posts){
-            if (err) {
-                return next(err);
-            }
-            res.json(posts);
+        //Post.find(function(err, posts){
+        //    if (err) {
+        //        return next(err);
+        //    }
+        //    res.json(posts);
+        //});
+        req.blog.populate('posts', function(err, posts) {
+            res.json(req.blog.posts);
         });
     });
 
