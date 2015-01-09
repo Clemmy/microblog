@@ -58,6 +58,15 @@ angular
       blogs : []
     };
 
+    o.getObjectIdFromName = function(name) {
+      for (var i=0; i< o.blogs.length; ++i) {
+        if (o.blogs[i].name === name) {
+          return o.blogs[i]._id;
+        }
+      }
+      throw new Error("Unable to locate requested blog by name");
+    };
+
     o.getAll = function() {
       return $http.get('/api/blogs').success(function(data){
         angular.copy(data, o.blogs);
@@ -70,13 +79,11 @@ angular
       });
     };
 
-    o.getObjectIdFromName = function(name) {
-      for (var i=0; i< o.blogs.length; ++i) {
-        if (o.blogs[i].name === name) {
-          return o.blogs[i]._id;
-        }
-      }
-      throw new Error("Unable to locate requested blog by name");
+    o.remove = function(name) {
+      var blogId = o.getObjectIdFromName(name);
+      $http.delete('/api/blogs/'+blogId).success(function(data){
+        o.blogs.pop(data);
+      });
     };
 
     return o;

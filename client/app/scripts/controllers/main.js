@@ -13,4 +13,8 @@ angular.module('clientApp')
       this.newBlog = {}; //resets
     };
 
+    this.deleteBlog = function(blogName) {
+      blogs.remove(blogName);
+    }
+
   }]);
