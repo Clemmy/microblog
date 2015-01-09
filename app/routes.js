@@ -63,6 +63,59 @@ module.exports = function(app) {
         res.json(req.blog);
     });
 
+    // POST create a post
+    app.post('/api/blogs/:blog/posts', function(req, res, next) {
+        var post = new Post();
+        post.title = req.body.title;
+        post.content = req.body.content;
+        post.lastEdited = new Date();
+        //ToDO: gen obj id
+
+        post.save(function(err, post){
+            if (err) {
+                return next(err);
+            }
+            req.blog.posts.push(post); // adds reference and saves it
+            req.blog.save(function(err, blog) {
+                if (err) {
+                    return next(err);
+                }
+                res.json(post);
+            });
+        });
+    });
+
+    // GET get all posts
+    app.get('/api/blogs/:blog/posts', function(req, res, next) {
+        Post.find(function(err, posts){
+            if (err) {
+                return next(err);
+            }
+            res.json(posts);
+        });
+    });
+
+    // adds blog object to req object in the next handler called
+    app.param('post', function(req, res, next, postId) {
+        var query = Post.findById(postId);
+
+        query.exec(function (err, post){
+            if (err) {
+                return next(err);
+            }
+            if (!post) {
+                return next(new Error("Cannot find post"));
+            }
+            req.post = post;
+            return next();
+        });
+    });
+
+    // GET get a post by id
+    app.get('/api/blogs/:blog/posts/:post', function(req, res) {
+        res.json(req.post);
+    });
+
     // frontend routes =========================================================
     // route to handle all angular requests
     app.get('*', function(req, res) {

@@ -10,6 +10,14 @@ var port = process.env.PORT || 10000;
 
 var db = require('./config/db');
 mongoose.connect(db.url);
+var db = mongoose.connection;
+db.on('error', function (err) {
+    console.log('connection error', err);
+});
+db.once('open', function () {
+    console.log('connected.');
+});
+
 require('./models/Blog');
 require('./models/Post');
 
