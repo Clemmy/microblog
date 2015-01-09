@@ -10,6 +10,7 @@ module.exports = function(app) {
     // handle things like api calls
     // authentication routes
 
+
     app.get('/api/nerds', function(req, res) {
         //res.send('hey');
         //res.end();
@@ -41,11 +42,26 @@ module.exports = function(app) {
         });
     });
 
+    // adds blog object to req object in the next handler called
+    app.param('blog', function(req, res, next, blogId) {
+        var query = Blog.findById(blogId);
 
+        query.exec(function (err, blog){
+            if (err) {
+                return next(err);
+            }
+            if (!blog) {
+                return next(new Error("Cannot find blog"));
+            }
+            req.blog = blog;
+            return next();
+        });
+    });
 
-
-    // route to handle creating goes here (app.post)
-    // route to handle delete goes here (app.delete)
+    // GET get a blog by id
+    app.get('/api/blogs/:blog', function(req, res) {
+        res.json(req.blog);
+    });
 
     // frontend routes =========================================================
     // route to handle all angular requests
