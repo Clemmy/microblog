@@ -68,7 +68,6 @@ angular
     o.getObjectIdFromName = function(name) {
       for (var i=0; i< o.blogs.length; ++i) {
         if (o.blogs[i].name === name) {
-          console.log(o.blogs[i].name + ' ' + name); //debug
           return o.blogs[i]._id;
         }
       }
@@ -85,9 +84,15 @@ angular
 
     o.getAllPostsFromBlog = function(blogName) {
       var blogId = blogs.getObjectIdFromName(blogName);
-      console.log('/api/blogs/'+blogId+'/posts'); //debug
       return $http.get('/api/blogs/'+blogId+'/posts').success(function(data){
         angular.copy(data, o.posts);
+      });
+    };
+
+    o.create = function(post, blogName) {
+      var blogId = blogs.getObjectIdFromName(blogName);
+      return $http.post('/api/blogs/'+blogId+'/posts', post).success(function(data){
+        o.posts.push(data);
       });
     };
 

@@ -62,7 +62,8 @@ module.exports = function(app) {
         post.title = req.body.title;
         post.content = req.body.content;
         post.lastEdited = new Date();
-        //ToDO: gen obj id
+        //post.blog = { type : req.blog._id };
+        post.blog = req.blog; // adds reference
 
         post.save(function(err, post){
             if (err) {
@@ -80,12 +81,6 @@ module.exports = function(app) {
 
     // GET get all posts
     app.get('/api/blogs/:blog/posts', function(req, res, next) {
-        //Post.find(function(err, posts){
-        //    if (err) {
-        //        return next(err);
-        //    }
-        //    res.json(posts);
-        //});
         req.blog.populate('posts', function(err, posts) {
             res.json(req.blog.posts);
         });
