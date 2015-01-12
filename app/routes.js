@@ -21,14 +21,15 @@ module.exports = function (app) {
     app.post('/api/images', multiparty(), function(req, res) {
         var picture = req.files.picture; // only populated when I do action = "/api/images"
         console.log(req.files);
-        var source = fs.createReadStream(picture.path);
-        var destination = fs.createWriteStream(path.resolve('localstorage/images')+'/'+picture.originalFilename); // microblog/localstorage/images
+        if (picture.originalFilename !== '') {
+            var source = fs.createReadStream(picture.path);
+            var destination = fs.createWriteStream(path.resolve('localstorage/images') + '/' + picture.originalFilename); // microblog/localstorage/images
 
-        source.pipe(destination, { end: false });
-        source.on("end", function(){
-            fs.unlinkSync(picture.path);
-        });
-
+            source.pipe(destination, {end: false});
+            source.on("end", function () {
+                fs.unlinkSync(picture.path);
+            });
+        }
 
         res.json({message: 'done'});
     });
