@@ -18,12 +18,16 @@ angular.module('clientApp')
     }
 
     $scope.onFileSelect = function($files) {
-      //$files: an array of files selected, each file has name, size, and type.
+
+      console.log('here'); //debug
       for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
+        console.log(file);
         $scope.upload = $upload.upload({
-          url: '/api/upload/image',
-          data: {myObj: $scope.myModelObj},
+          url: '/api/images',
+          data: {
+            myObj: $scope.myModelObj
+          },
           file: file,
         }).progress(function(evt) {
           console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
@@ -33,6 +37,7 @@ angular.module('clientApp')
         });
       }
     };
+
 
   }]);
 
