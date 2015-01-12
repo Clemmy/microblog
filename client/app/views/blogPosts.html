@@ -22,9 +22,16 @@
     </fieldset>
   </form>
 </div>
-
 <br>
+<input type="file"
+ng-file-select ng-model="myFiles"
+ng-file-change="fileSelected($files, $event)"
+accept="image/*">
+Upload
+</input>
 
+
+<!--List of Posts-->
 <ul>
   <li ng-repeat="post in posts | orderBy: '-lastEdited'">
     <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post._id }}"> {{ post.title }} - {{ post.lastEdited |  date:'yyyy-MM-dd' }}</a>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
+  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', '$upload', function ($stateParams, $scope, posts, $upload) {
 
     this.blogName = $stateParams.blogName;
     $scope.posts = posts.posts;
