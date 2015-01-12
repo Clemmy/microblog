@@ -6,7 +6,9 @@
 <br>
 <div class="collapse" id="collapseCreateBlogPostForm">
   <br>
-  <form name="createNewPostForm" ng-submit="blogPostsCtrl.createPost()">
+  <!--<form name="createNewPostForm" ng-submit="blogPostsCtrl.createPostTest()" enctype="multipart/form-data" method="post">-->
+  <form name="createNewPostForm" ng-upload="uploadComplete(content)" enctype="multipart/form-data" action="/api/images" method="post">
+  <!--<form name="createNewPostForm" enctype="multipart/form-data" method="post" action="/api/images">-->
     <fieldset class="form-group">
       <input ng-model="blogPostsCtrl.newPost.title" type="text" class="form-control" placeholder="Enter a title for the post." title="PostTitle" />
     </fieldset>
@@ -14,17 +16,17 @@
       <textarea ng-model="blogPostsCtrl.newPost.content" class="form-control" placeholder="Write content here! There is a 160 character limit." title="PostContent" maxlength="160"></textarea>
     </fieldset>
     <fieldset class="form-group">
-      <!--<input type="file" accept="image/*" ng-file-select="onFileSelect($files)">-->
-      <input type="file" ng-file-select="onFileSelect($files)">
+      <input type="file" name="picture" accept="image/*">
     </fieldset>
     <fieldset class="form-group">
+      <!--<input type="submit" ng-click="blogPostsCtrl.createPostTest()" class="btn btn-primary pull-right" value="Post!" />-->
       <input type="submit" class="btn btn-primary pull-right" value="Post!" />
     </fieldset>
   </form>
 </div>
-
 <br>
 
+<!--List of Posts-->
 <ul>
   <li ng-repeat="post in posts | orderBy: '-lastEdited'">
     <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post._id }}"> {{ post.title }} - {{ post.lastEdited |  date:'yyyy-MM-dd' }}</a>

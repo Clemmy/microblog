@@ -4,6 +4,7 @@ angular.module('clientApp')
   .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
 
     this.blogName = $stateParams.blogName;
+    this.picture = null;
     $scope.posts = posts.posts;
 
     this.newPost = {};
@@ -17,22 +18,29 @@ angular.module('clientApp')
       posts.removePostFromIdAndBlogName(postId, this.blogName);
     }
 
-    $scope.onFileSelect = function($files) {
-      //$files: an array of files selected, each file has name, size, and type.
-      for (var i = 0; i < $files.length; i++) {
-        var file = $files[i];
-        $scope.upload = $upload.upload({
-          url: '/api/upload/image',
-          data: {myObj: $scope.myModelObj},
-          file: file,
-        }).progress(function(evt) {
-          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-        }).success(function(data, status, headers, config) {
-          // file is uploaded successfully
-          console.log(data);
-        });
-      }
-    };
+    // this function is under development
+    // TODO: pass in blog and post information to structure the filesystem accordingly and avoid naming conflicts/overwrites
+    this.createPostTest = function createPostTest() {
+      console.log(data);
+      $upload.upload({
+        url: '/api/images',
+        method: 'POST',
+        data: this.newPost,
+        file: this.picture,
+        fileFormDataName: 'picture'
+      }).success(function(data, status, headers, config) {
+        console.log('Photo uploaded!');
+      }).error(function(err) {
+        console.error('Error uploading file: ' + err.message || err);
+      });
+
+    }
+
+    $scope.uploadComplete = function(content) {
+      console.log('upload complete debug');
+      console.log(content);
+    }
+
 
   }]);
 

@@ -1,5 +1,7 @@
 var path = require('path');
 var mongoose = require('mongoose');
+var multiparty = require('connect-multiparty');
+var fs = require('fs');
 
 module.exports = function (app) {
 
@@ -10,8 +12,25 @@ module.exports = function (app) {
     // handle things like api calls
     // authentication routes
 
-    app.post('/api/upload/image', function(req, res) {
-        console.log('success?');
+    //app.post('/api/images', function(req, res) {
+    //    console.log('success?');
+    //    //console.log(req);
+    //    res.json('done');
+    //});
+
+    app.post('/api/images', multiparty(), function(req, res) {
+        var picture = req.files.picture; // only populated when I do action = "/api/images"
+        console.log(req.files);
+        var source = fs.createReadStream(picture.path);
+        var destination = fs.createWriteStream(path.resolve('localstorage/images')+'/'+picture.originalFilename); // microblog/localstorage/images
+
+        source.pipe(destination, { end: false });
+        source.on("end", function(){
+            fs.unlinkSync(picture.path);
+        });
+
+
+        res.json({message: 'done'});
     });
 
     // GET get all blogs

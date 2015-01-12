@@ -6,7 +6,8 @@ angular
     'ngResource',
     'ngSanitize',
     'ngTouch',
-    'ui.router'
+    'ui.router',
+    'ngUpload'
   ])
 
   .config(['$stateProvider', '$urlRouterProvider',
