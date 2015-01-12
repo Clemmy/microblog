@@ -1,6 +1,7 @@
 var path = require('path');
 var mongoose = require('mongoose');
-
+var multiparty = require('connect-multiparty');
+var fs = require('fs');
 
 module.exports = function (app) {
 
@@ -11,10 +12,18 @@ module.exports = function (app) {
     // handle things like api calls
     // authentication routes
 
-    app.post('/api/images', function(req, res) {
-        console.log('success?');
-        //console.log(req);
-        res.json('done');
+    //app.post('/api/images', function(req, res) {
+    //    console.log('success?');
+    //    //console.log(req);
+    //    res.json('done');
+    //});
+
+    app.post('/api/images', multiparty(), function(req, res) {
+        var file = req.files.file;
+        console.log(req.files);
+        //console.log(file.name);
+        //console.log(file.type);
+        res.json({message: 'done'});
     });
 
     // GET get all blogs

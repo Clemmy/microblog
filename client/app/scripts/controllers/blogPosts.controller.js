@@ -23,7 +23,7 @@ angular.module('clientApp')
       console.log('here');
       console.log(this.newPost);
       console.log(this.picture);
-      $upload.http({
+      $upload.upload({
         url: '/api/images',
         method: 'POST',
         data: this.newPost,
@@ -34,10 +34,6 @@ angular.module('clientApp')
         console.log(Math.floor(event.loaded / event.total));
       }).success(function(data, status, headers, config) {
         console.log('Photo uploaded!');
-        console.log('data: '+data);
-        console.log('status: '+status);
-        console.log('headers: '+headers);
-        console.log('config: '+config);
       }).error(function(err) {
         console.error('Error uploading file: ' + err.message || err);
       });
