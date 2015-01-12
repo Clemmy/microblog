@@ -29,7 +29,7 @@ angular.module('clientApp')
         file: this.picture,
         fileFormDataName: 'picture'
       }).success(function(data, status, headers, config) {
-        console.log('Photo uploaded!');
+        console.log('Image uploaded!');
       }).error(function(err) {
         console.error('Error uploading file: ' + err.message || err);
       });

@@ -12,15 +12,9 @@ module.exports = function (app) {
     // handle things like api calls
     // authentication routes
 
-    //app.post('/api/images', function(req, res) {
-    //    console.log('success?');
-    //    //console.log(req);
-    //    res.json('done');
-    //});
-
     app.post('/api/images', multiparty(), function(req, res) {
         var picture = req.files.picture; // only populated when I do action = "/api/images"
-        console.log(req.files);
+        //console.log(req.files);
         if (picture.originalFilename !== '') {
             var source = fs.createReadStream(picture.path);
             var destination = fs.createWriteStream(path.resolve('localstorage/images') + '/' + picture.originalFilename); // microblog/localstorage/images
@@ -30,6 +24,8 @@ module.exports = function (app) {
                 fs.unlinkSync(picture.path);
             });
         }
+        // do other processing things
+        console.log(req.body); //debug
 
         res.json({message: 'done'});
     });
