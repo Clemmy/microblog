@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('ArchiveCtrl', ['$stateParams', '$scope', 'posts', 'blogs',function ($stateParams, $scope, posts, blogs) {
+  .controller('ArchiveCtrl', ['$stateParams', '$scope', 'posts', 'blogs', function ($stateParams, $scope, posts, blogs) {
 
-    $scope.blogs = blogs;
+    $scope.blogs = blogs.blogs;
 
 
   }]);

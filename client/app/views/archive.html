@@ -1,12 +1,10 @@
 <ul>
   <li ng-repeat="blog in blogs">
     <!--{{ blogs }}-->
-    <!--{{ blog }}-->
     {{ blog.name }}
-    {{ - blog.author }}
     <ul>
       <li ng-repeat="post in blog.posts">
-        {{ post.content }}
+        {{ post }}
       </li>
     </ul>
   </li>
