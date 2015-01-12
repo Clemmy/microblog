@@ -1,6 +1,7 @@
 var path = require('path');
 var mongoose = require('mongoose');
 
+
 module.exports = function (app) {
 
     var Blog = mongoose.model('Blog');
@@ -10,8 +11,10 @@ module.exports = function (app) {
     // handle things like api calls
     // authentication routes
 
-    app.post('/api/upload/image', function(req, res) {
+    app.post('/api/images', function(req, res) {
         console.log('success?');
+        //console.log(req);
+        res.json('done');
     });
 
     // GET get all blogs

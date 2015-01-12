@@ -4,6 +4,7 @@ angular.module('clientApp')
   .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', '$upload', function ($stateParams, $scope, posts, $upload) {
 
     this.blogName = $stateParams.blogName;
+    this.picture = null;
     $scope.posts = posts.posts;
 
     this.newPost = {};
@@ -17,26 +18,31 @@ angular.module('clientApp')
       posts.removePostFromIdAndBlogName(postId, this.blogName);
     }
 
-    $scope.onFileSelect = function($files) {
+    // this function is under development
+    this.createPostTest = function createPostTest() {
+      console.log('here');
+      console.log(this.newPost);
+      console.log(this.picture);
+      $upload.http({
+        url: '/api/images',
+        method: 'POST',
+        data: this.newPost,
+        file: this.picture,
+        fileFormDataName: 'picture'
+      }).progress(function(event) {
+        console.log('progress event');
+        console.log(Math.floor(event.loaded / event.total));
+      }).success(function(data, status, headers, config) {
+        console.log('Photo uploaded!');
+        console.log('data: '+data);
+        console.log('status: '+status);
+        console.log('headers: '+headers);
+        console.log('config: '+config);
+      }).error(function(err) {
+        console.error('Error uploading file: ' + err.message || err);
+      });
 
-      console.log('here'); //debug
-      for (var i = 0; i < $files.length; i++) {
-        var file = $files[i];
-        console.log(file);
-        $scope.upload = $upload.upload({
-          url: '/api/images',
-          data: {
-            myObj: $scope.myModelObj
-          },
-          file: file,
-        }).progress(function(evt) {
-          console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-        }).success(function(data, status, headers, config) {
-          // file is uploaded successfully
-          console.log(data);
-        });
-      }
-    };
+    }
 
 
   }]);
