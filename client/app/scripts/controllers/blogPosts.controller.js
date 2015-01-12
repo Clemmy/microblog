@@ -19,19 +19,14 @@ angular.module('clientApp')
     }
 
     // this function is under development
+    // TODO: pass in blog and post information to structure the filesystem accordingly and avoid naming conflicts/overwrites
     this.createPostTest = function createPostTest() {
-      console.log('here');
-      console.log(this.newPost);
-      console.log(this.picture);
       $upload.upload({
         url: '/api/images',
         method: 'POST',
         data: this.newPost,
         file: this.picture,
         fileFormDataName: 'picture'
-      }).progress(function(event) {
-        console.log('progress event');
-        console.log(Math.floor(event.loaded / event.total));
       }).success(function(data, status, headers, config) {
         console.log('Photo uploaded!');
       }).error(function(err) {

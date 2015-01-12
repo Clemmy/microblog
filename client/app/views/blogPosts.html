@@ -7,8 +7,8 @@
 <div class="collapse" id="collapseCreateBlogPostForm">
   <br>
   <!--<form name="createNewPostForm" ng-submit="blogPostsCtrl.createPostTest()" enctype="multipart/form-data" method="post">-->
-  <form name="createNewPostForm" enctype="multipart/form-data" method="post">
-  <!--<form name="createNewPostForm">-->
+  <!--<form name="createNewPostForm" ng-submit="blogPostsCtrl.createPostTest()" enctype="multipart/form-data" method="post">-->
+  <form name="createNewPostForm" enctype="multipart/form-data" method="post" action="/api/images">
     <fieldset class="form-group">
       <input ng-model="blogPostsCtrl.newPost.title" type="text" class="form-control" placeholder="Enter a title for the post." title="PostTitle" />
     </fieldset>
@@ -19,7 +19,8 @@
       <input type="file" name="file" accept="image/*" ng-model="blogPostsCtrl.picture">
     </fieldset>
     <fieldset class="form-group">
-      <input type="submit" ng-click="blogPostsCtrl.createPostTest()" class="btn btn-primary pull-right" value="Post!" />
+      <!--<input type="submit" ng-click="blogPostsCtrl.createPostTest()" class="btn btn-primary pull-right" value="Post!" />-->
+      <input type="submit" class="btn btn-primary pull-right" value="Post!" />
     </fieldset>
   </form>
 </div>

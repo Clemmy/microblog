@@ -19,10 +19,17 @@ module.exports = function (app) {
     //});
 
     app.post('/api/images', multiparty(), function(req, res) {
-        var file = req.files.file;
+        var file = req.files.file; // only populated when I do action = "/api/images"
         console.log(req.files);
-        //console.log(file.name);
-        //console.log(file.type);
+        var source = fs.createReadStream(file.path);
+        var destination = fs.createWriteStream(path.resolve('localstorage/images')+'/'+file.originalFilename); // microblog/localstorage/images
+
+        source.pipe(destination, { end: false });
+        source.on("end", function(){
+            fs.unlinkSync(file.path);
+        });
+
+
         res.json({message: 'done'});
     });
 
