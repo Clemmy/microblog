@@ -7,7 +7,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'angularFileUpload'
+    'ngUpload'
   ])
 
   .config(['$stateProvider', '$urlRouterProvider',

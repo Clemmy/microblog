@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', '$upload', function ($stateParams, $scope, posts, $upload) {
+  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
 
     this.blogName = $stateParams.blogName;
     this.picture = null;
@@ -21,6 +21,7 @@ angular.module('clientApp')
     // this function is under development
     // TODO: pass in blog and post information to structure the filesystem accordingly and avoid naming conflicts/overwrites
     this.createPostTest = function createPostTest() {
+      console.log(data);
       $upload.upload({
         url: '/api/images',
         method: 'POST',
@@ -33,6 +34,11 @@ angular.module('clientApp')
         console.error('Error uploading file: ' + err.message || err);
       });
 
+    }
+
+    $scope.uploadComplete = function(content) {
+      console.log('upload complete debug');
+      console.log(content);
     }
 
 
