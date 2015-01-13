@@ -24,13 +24,18 @@ module.exports = function (app) {
             localstorageManager.mkdirSync(path.resolve('localstorage/images/'+req.blog._id+'/'+post._id)); // make dir with postId as folder name
             var localImgUrl = path.resolve('localstorage/images/'+req.blog._id+'/'+post._id);
 
-            var source = fs.createReadStream(picture.path); // some tmp directory managed by browser
-            var destination = fs.createWriteStream(localImgUrl + '/' + picture.originalFilename); // microblog/localstorage/images/:blogId/:postId/image.png
+            localstorageManager.moveFile(picture.path, localImgUrl + '/' + picture.originalFilename);
 
-            source.pipe(destination, {end: false});
-            source.on("end", function () {
-                fs.unlinkSync(picture.path);
-            });
+            //var source = fs.createReadStream(picture.path); // some tmp directory managed by browser
+            //var destination = fs.createWriteStream(localImgUrl + '/' + picture.originalFilename); // microblog/localstorage/images/:blogId/:postId/image.png
+            //
+            //source.pipe(destination, {end: false});
+            //source.on("end", function () {
+            //    fs.unlinkSync(picture.path);
+            //});
+
+
+
             imgUrl = "/storage/"+req.blog._id+'/'+post._id+'/'+picture.originalFilename;
         }
 
@@ -158,11 +163,9 @@ module.exports = function (app) {
             if (err)
                 res.send(err);
             for (var i = 0; i < req.blog.posts.length; ++i) {
-                //Post.remove({_id: req.blog.posts[i]}), function (err, post) { //TODO: fix hanging deletes
-                //    if (err)
-                //        console.log(err); //debug
-                //}
-                Post.findByIdAndRemove(req.blog.posts[i]);
+                Post.findByIdAndRemove(req.blog.posts[i], function(data) {
+                    console.log(data);
+                });
             }
 
             rmdir(path.resolve('localstorage/images/'+req.params.blog), function(err) { if (err) console.log(err); });

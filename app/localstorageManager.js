@@ -8,6 +8,17 @@ var mkdirSync = function (path) {
     }
 }
 
+var moveFile = function (srcPath, destPath) {
+    var source = fs.createReadStream(srcPath); // some tmp directory managed by browser
+    var destination = fs.createWriteStream(destPath); // microblog/localstorage/images/:blogId/:postId/image.png
+
+    source.pipe(destination, {end: false});
+    source.on("end", function () {
+        fs.unlinkSync(picture.path);
+    });
+}
+
 module.exports = {
-    mkdirSync : mkdirSync
+    mkdirSync : mkdirSync,
+    moveFile : moveFile
 }
