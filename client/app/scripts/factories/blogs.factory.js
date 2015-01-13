@@ -1,9 +1,18 @@
 'use strict';
 
 angular.module('clientApp')
-  .factory('blogs', ['$http', function($http){
+  .factory('blogs', ['$http', '$q', function($http, $q){
     var o = {
       blogs : []
+    };
+
+    o.getAll = function(callback) {
+      return $http.get('/api/blogs').success(function(data){
+        angular.copy(data, o.blogs);
+        if (callback && typeof(callback) === "function") {
+          callback();
+        }
+      });
     };
 
     o.getObjectIdFromName = function(name) {
@@ -15,28 +24,12 @@ angular.module('clientApp')
       throw new Error("Unable to locate requested blog by name");
     };
 
-    o.getBlogFromName = function(name) {
-      var blogId = o.getObjectIdFromName(name);
-      return $http.get('/api/blogs/'+blogId).success(function(data) {
-        // do nothing
-      })
-    }
-
-    o.getAll = function(callback) {
-      return $http.get('/api/blogs').success(function(data){
-        angular.copy(data, o.blogs);
-        if (callback && typeof(callback) === "function") {
-          callback();
-        }
-      });
-    };
-
     o.getAllWithPopulatedPosts = function(callback) {
       return $http.get('/api/blogs/all').success(function(data){
         if (callback && typeof(callback) === "function")
           callback(data);
       });
-    }
+    };
 
     o.create = function(blog) {
       return $http.post('/api/blogs', blog).success(function(data){
@@ -44,11 +37,15 @@ angular.module('clientApp')
       });
     };
 
-    o.remove = function(name) {
-      var blogId = o.getObjectIdFromName(name);
-      $http.delete('/api/blogs/'+blogId).success(function(data){
+    o.remove = function(blog) {
+      //o.blogs.getAll(function() {
+      //
+      //});
+      var blogId = blog._id;
+      $http.delete('/api/blogs/' + blogId).success(function (data) {
         o.blogs.pop(data);
       });
+
     };
 
     return o;

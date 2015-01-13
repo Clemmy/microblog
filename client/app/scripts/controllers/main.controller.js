@@ -11,7 +11,6 @@ angular.module('clientApp')
     this.createBlog = function() {
 
       if (blogs.blogs.map(function(el) { return el.name; }).indexOf(this.newBlog.name) < 0) { // blog title is unique
-        console.log(this.newBlog);
         if (this.newBlog.name) {
           blogs.create(this.newBlog);
           this.newBlog = {}; //resets
@@ -29,8 +28,8 @@ angular.module('clientApp')
 
     };
 
-    this.deleteBlog = function(blogName) {
-      blogs.remove(blogName);
+    this.deleteBlog = function(blog) {
+      blogs.remove(blog);
     }
 
   }]);

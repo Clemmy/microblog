@@ -53,10 +53,7 @@ angular
           resolve : {
             requestedPost : ['posts', '$stateParams', function(posts, $stateParams) { //rename to postPromise
               return posts.getPostFromIdAndBlogName($stateParams.postId, $stateParams.blogName);
-            }]//,
-            //blogAuthor : ['blogs', '$stateParams', function(blogs, $stateParams) {
-            //  return blogs.getBlogFromName($stateParams.blogName);
-            //}]
+            }]
           }
         })
       ;

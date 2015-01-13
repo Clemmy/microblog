@@ -19,7 +19,7 @@ angular.module('clientApp')
           });
         });
       })();
-      return postsPromise;
+      return postsPromise.promise;
     };
 
     o.create = function(post, blogName) {
@@ -43,7 +43,12 @@ angular.module('clientApp')
           var blogId = blogs.getObjectIdFromName(blogName);
           return $http.get('/api/blogs/' + blogId + '/posts/' + postId).success(function (requestedPost) {
             o.postContext = requestedPost;
-            postPromise.resolve();
+            // get author
+            $http.get('/api/blogs/'+blogId).success(function(data) {
+              console.log(data);
+              o.postContext.author = data.author;
+              postPromise.resolve();
+            });
           });
         });
       })();
