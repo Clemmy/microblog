@@ -7,5 +7,6 @@ angular.module('clientApp')
     $scope.postContent = requestedPost.data.content;
     $scope.postLastEdited = requestedPost.data.lastEdited;
     $scope.postAuthor = blogAuthor.data.author;
+    $scope.postImageUrl = requestedPost.data.imageUrl;
   }]);
 

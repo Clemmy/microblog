@@ -2,6 +2,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var multiparty = require('connect-multiparty');
 var fs = require('fs');
+var localstorageManager = require('./localstorageManager');
 
 module.exports = function (app) {
 
@@ -13,26 +14,30 @@ module.exports = function (app) {
     // authentication routes
 
     app.post('/api/blogs/:blog/posts', multiparty(), function(req, res, next) {
+        var post = new Post();
+
         var imgUrl = null;
         var picture = req.files.picture; // only populated when I do action = "/api/images"
         if (picture.originalFilename !== '') {
-            var source = fs.createReadStream(picture.path);
-            var destination = fs.createWriteStream(path.resolve('localstorage/images') + '/' + picture.originalFilename); // microblog/localstorage/images
+            localstorageManager.mkdirSync(path.resolve('localstorage/images/'+req.blog._id)); // make dir with blogId as folder name
+            localstorageManager.mkdirSync(path.resolve('localstorage/images/'+req.blog._id+'/'+post._id)); // make dir with postId as folder name
+            var localImgUrl = path.resolve('localstorage/images/'+req.blog._id+'/'+post._id);
+
+            var source = fs.createReadStream(picture.path); // some tmp directory managed by browser
+            var destination = fs.createWriteStream(localImgUrl + '/' + picture.originalFilename); // microblog/localstorage/images/:blogId/:postId/image.png
 
             source.pipe(destination, {end: false});
             source.on("end", function () {
                 fs.unlinkSync(picture.path);
             });
-            imgUrl = "/storage/"+picture.originalFilename;
+            imgUrl = "/storage/"+req.blog._id+'/'+post._id+'/'+picture.originalFilename;
         }
 
-        var post = new Post();
         post.title = req.body.title;
         post.content = req.body.content;
         post.lastEdited = new Date();
         post.blog = req.blog; // adds reference
         post.imageUrl = imgUrl;
-        console.log(post);
 
         post.save(function (err, post) {
             if (err) {

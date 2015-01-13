@@ -13,9 +13,6 @@ angular.module('clientApp')
       posts.removePostFromIdAndBlogName(postId, this.blogName);
     }
 
-    // this function is under development
-    // TODO: pass in blog and post information to structure the filesystem accordingly and avoid naming conflicts/overwrites
-
     $scope.uploadComplete = function(content) {
       // manually force update and form refresh
       posts.posts.push(content);
