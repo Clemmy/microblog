@@ -29,6 +29,7 @@ angular.module('clientApp')
       });
     };
 
+    //TODO: refactor callback hell
     o.getPostFromIdAndBlogName = function(postId, blogName, callback) {
       //first fetches blogs from backend so blogs service functions work
       var postPromise = $q.defer();
@@ -56,8 +57,6 @@ angular.module('clientApp')
 
     o.removePostFromIdAndBlogName = function(postId, blogName) {
       var blogId = blogs.getObjectIdFromName(blogName);
-      //$http.delete('/api/blogs/'+blogId+'/posts/'+postId).success(function(data){
-      //});
       return $http.delete('/api/blogs/'+blogId+'/posts/'+postId);
     };
 

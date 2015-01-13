@@ -7,7 +7,7 @@
     <br>
     <form name="createNewBlogForm" ng-submit="mainCtrl.createBlog()">
       <fieldset class="form-group">
-        <input ng-model="mainCtrl.newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog." title="BlogName" />
+        <input ng-model="mainCtrl.newBlog.name" type="text" class="form-control" placeholder="Enter a name for the blog. (I will assume you won't try to destroy me with an XSS attack)" title="BlogName" />
         <label ng-show="mainCtrl.duplicateName">This blog title is already taken!</label>
         <label ng-show="mainCtrl.emptyName">The blog title cannot be blank!</label>
       </fieldset>
