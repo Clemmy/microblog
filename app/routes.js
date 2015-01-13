@@ -26,16 +26,6 @@ module.exports = function (app) {
 
             localstorageManager.moveFile(picture.path, localImgUrl + '/' + picture.originalFilename);
 
-            //var source = fs.createReadStream(picture.path); // some tmp directory managed by browser
-            //var destination = fs.createWriteStream(localImgUrl + '/' + picture.originalFilename); // microblog/localstorage/images/:blogId/:postId/image.png
-            //
-            //source.pipe(destination, {end: false});
-            //source.on("end", function () {
-            //    fs.unlinkSync(picture.path);
-            //});
-
-
-
             imgUrl = "/storage/"+req.blog._id+'/'+post._id+'/'+picture.originalFilename;
         }
 
@@ -152,6 +142,8 @@ module.exports = function (app) {
                 blog.posts.pull(req.params.post);
                 blog.save();
             });
+
+            rmdir(path.resolve('localstorage/images/'+req.params.blog+'/'+req.params.post), function(err) { if (err) console.log(err); });
 
             res.json({message: 'Successfully deleted post'});
         });

@@ -14,7 +14,7 @@ var moveFile = function (srcPath, destPath) {
 
     source.pipe(destination, {end: false});
     source.on("end", function () {
-        fs.unlinkSync(picture.path);
+        fs.unlinkSync(srcPath);
     });
 }
 
