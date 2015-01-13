@@ -4,13 +4,29 @@ angular.module('clientApp')
   .controller('MainCtrl',['$scope', 'blogs', function ($scope, blogs) {
 
     $scope.blogs = blogs.blogs;
-
-    this.newBlog = {}; //initializes //TODO: createBlogController pls & validate (remember ng-dirty etc)
+    this.duplicateName = false;
+    this.emptyName = false;
+    this.newBlog = {};
 
     this.createBlog = function() {
-      //TODO: ensure no conflicting name
-      blogs.create(this.newBlog);
-      this.newBlog = {}; //resets
+
+      if (blogs.blogs.map(function(el) { return el.name; }).indexOf(this.newBlog.name) < 0) { // blog title is unique
+        console.log(this.newBlog);
+        if (this.newBlog.name) {
+          blogs.create(this.newBlog);
+          this.newBlog = {}; //resets
+          this.duplicateName = false;
+          this.emptyName - false;
+        }
+        else {
+          this.emptyName = true;
+        }
+      }
+      else {
+        this.duplicateName = true;
+        this.newBlog.name = '';
+      }
+
     };
 
     this.deleteBlog = function(blogName) {
