@@ -42,9 +42,7 @@ angular.module('clientApp')
       //
       //});
       var blogId = blog._id;
-      $http.delete('/api/blogs/' + blogId).success(function (data) {
-        o.blogs.pop(data);
-      });
+      return $http.delete('/api/blogs/' + blogId);
 
     };
 

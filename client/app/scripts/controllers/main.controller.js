@@ -27,8 +27,10 @@ angular.module('clientApp')
       }
     };
 
-    this.deleteBlog = function(blog) {
-      blogs.remove(blog);
+    this.deleteBlog = function(blog, index) {
+      blogs.remove(blog).success(function (data) {
+        $scope.blogs.splice(index, 1);
+      });
     }
 
   }]);

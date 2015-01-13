@@ -155,17 +155,17 @@ module.exports = function (app) {
     // DELETE deletes a blog by id
     app.delete('/api/blogs/:blog', function (req, res) {
         Blog.remove({_id: req.params.blog}, function (err, blog) {
-
             if (err)
                 res.send(err);
             for (var i = 0; i < req.blog.posts.length; ++i) {
-                Post.remove({_id: req.blog.posts[i]}), function (err, post) { //TODO: fix hanging deletes
-                    console.log(err); //debug
-                }
-                //Post.findByIdAndRemove(req.blog.posts[i]);
+                //Post.remove({_id: req.blog.posts[i]}), function (err, post) { //TODO: fix hanging deletes
+                //    if (err)
+                //        console.log(err); //debug
+                //}
+                Post.findByIdAndRemove(req.blog.posts[i]);
             }
 
-            rmdir(path.resolve('localstorage/images/'+req.params.blog), function(err) { console.log(err); });
+            rmdir(path.resolve('localstorage/images/'+req.params.blog), function(err) { if (err) console.log(err); });
 
             res.json({message: 'Successfully deleted blog'});
         });

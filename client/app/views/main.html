@@ -27,7 +27,7 @@
   <ul class="list-group">
     <li ng-repeat="blog in blogs" class="list-group-item">
       <div class="pull-right">
-        <a ng-click="mainCtrl.deleteBlog(blog)">
+        <a ng-click="mainCtrl.deleteBlog(blog, $index)">
           <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right:7px; margin-top:2px"></span>
         </a>
         <span class="badge">{{ blog.posts.length }}</span>
