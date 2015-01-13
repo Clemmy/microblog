@@ -1,5 +1,4 @@
 var fs = require('fs');
-//TODO: move some functions into this
 
 var mkdirSync = function (path) {
     try {
