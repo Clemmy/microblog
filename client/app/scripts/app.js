@@ -16,16 +16,6 @@ angular
       $urlRouterProvider.otherwise('/');
 
       $stateProvider
-        //.state('blogs', {
-        //  url : '/blogs',
-        //  abstract : true,
-        //  template : '<ui-view/>',
-        //  resolve : {
-        //    blogsPromise : ['blogs', function(blogs){
-        //      return blogs.getAllWithPopulatedPosts();
-        //    }]
-        //  }
-        //})
         .state('home', {
           url : '/',
           templateUrl : 'app/views/main.html',
@@ -61,12 +51,12 @@ angular
           templateUrl : 'app/views/post.html',
           controller : 'PostCtrl as postCtrl',
           resolve : {
-            requestedPost : ['posts', '$stateParams', function(posts, $stateParams) {
+            requestedPost : ['posts', '$stateParams', function(posts, $stateParams) { //rename to postPromise
               return posts.getPostFromIdAndBlogName($stateParams.postId, $stateParams.blogName);
-            }],
-            blogAuthor : ['blogs', '$stateParams', function(blogs, $stateParams) {
-              return blogs.getBlogFromName($stateParams.blogName);
-            }]
+            }]//,
+            //blogAuthor : ['blogs', '$stateParams', function(blogs, $stateParams) {
+            //  return blogs.getBlogFromName($stateParams.blogName);
+            //}]
           }
         })
       ;

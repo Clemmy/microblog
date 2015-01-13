@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('PostCtrl', ['$stateParams', '$scope', 'requestedPost', 'blogAuthor', function ($stateParams, $scope, requestedPost, blogAuthor) {
+  //.controller('PostCtrl', ['$stateParams', '$scope', 'requestedPost', 'blogAuthor', function ($stateParams, $scope, requestedPost, blogAuthor) {
+  .controller('PostCtrl', ['$stateParams', '$scope', 'requestedPost', 'posts', function ($stateParams, $scope, requestedPost, posts) {
 
-    $scope.postTitle = requestedPost.data.title;
-    $scope.postContent = requestedPost.data.content;
-    $scope.postLastEdited = requestedPost.data.lastEdited;
-    $scope.postAuthor = blogAuthor.data.author;
-    $scope.postImageUrl = requestedPost.data.imageUrl;
+    $scope.requestedPost = posts.postContext;
+
+    //$scope.postAuthor = blogAuthor.data.author;
+
   }]);
 

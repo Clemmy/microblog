@@ -18,19 +18,23 @@ angular.module('clientApp')
     o.getBlogFromName = function(name) {
       var blogId = o.getObjectIdFromName(name);
       return $http.get('/api/blogs/'+blogId).success(function(data) {
+        // do nothing
       })
     }
 
     o.getAll = function(callback) {
       return $http.get('/api/blogs').success(function(data){
         angular.copy(data, o.blogs);
-        if (callback) callback();
+        if (callback && typeof(callback) === "function") {
+          callback();
+        }
       });
     };
 
-    o.getAllWithPopulatedPosts = function() {
+    o.getAllWithPopulatedPosts = function(callback) {
       return $http.get('/api/blogs/all').success(function(data){
-        // do nothing
+        if (callback && typeof(callback) === "function")
+          callback(data);
       });
     }
 
@@ -46,8 +50,6 @@ angular.module('clientApp')
         o.blogs.pop(data);
       });
     };
-
-    //o.getAll(); debug
 
     return o;
   }])

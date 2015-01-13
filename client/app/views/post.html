@@ -1,9 +1,9 @@
-<h1> {{ postTitle }} </h1>
+<h1> {{ requestedPost.title }} </h1>
 Written by: {{ postAuthor }}
 <hr>
 <p>
-  {{ postContent }}
+  {{ requestedPost.content }}
 </p>
-<img ng-src="{{ postImageUrl }}" style="max-width: 100%"/>
+<img ng-src="{{ requestedPost.imageUrl }}" style="max-width: 100%"/>
 <br>
-Last Edited: {{ postLastEdited }}
+Last Edited: {{ requestedPost.lastEdited }}

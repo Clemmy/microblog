@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('clientApp')
-  .factory('posts', ['$http', 'blogs', function($http, blogs) {
+  .factory('posts', ['$http', 'blogs', '$q', function($http, blogs, $q) {
     var o = {
-      posts: []
+      posts : [],
+      postContext : {}
     };
 
     o.getAllPostsFromBlog = function(blogName) {
-      console.log('beginning get all posts from blog'); //debug
+      //first fetches blogs from backend so blogs service functions work
       blogs.getAll(function() { // callback
         var blogId = blogs.getObjectIdFromName(blogName);
         return $http.get('/api/blogs/'+blogId+'/posts').success(function(data){
@@ -23,12 +24,26 @@ angular.module('clientApp')
       });
     };
 
-    o.getPostFromIdAndBlogName = function(postId, blogName) {
-      var blogId = blogs.getObjectIdFromName(blogName);
-      return $http.get('/api/blogs/'+blogId+'/posts/'+postId).success(function(data){
-        // do nothing in success callback
-      });
-    }
+    o.getPostFromIdAndBlogName = function(postId, blogName, callback) {
+      //first fetches blogs from backend so blogs service functions work
+      var postPromise = $q.defer();
+      (function() {
+        (function () {
+          var d = $q.defer();
+          blogs.getAll(function () {
+            d.resolve();
+          });
+          return d.promise;
+        })().then(function () {
+          var blogId = blogs.getObjectIdFromName(blogName);
+          return $http.get('/api/blogs/' + blogId + '/posts/' + postId).success(function (requestedPost) {
+            o.postContext = requestedPost;
+            postPromise.resolve();
+          });
+        });
+      })();
+      return postPromise.promise;
+    };
 
     o.removePostFromIdAndBlogName = function(postId, blogName) {
       var blogId = blogs.getObjectIdFromName(blogName);
