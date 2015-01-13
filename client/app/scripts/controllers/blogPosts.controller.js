@@ -8,8 +8,10 @@ angular.module('clientApp')
     $scope.posts = posts.posts;
     $scope.newPost = {};
 
-    this.removePost = function(postId) {
-      posts.removePostFromIdAndBlogName(postId, this.blogName);
+    this.removePost = function(postId, index) {
+      posts.removePostFromIdAndBlogName(postId, this.blogName).success(function (data) {
+        $scope.posts.splice(index, 1);
+      });
     }
 
     $scope.uploadComplete = function(content) {

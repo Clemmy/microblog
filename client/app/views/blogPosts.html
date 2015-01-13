@@ -25,9 +25,9 @@
 
 <!--List of Posts-->
 <ul>
-  <li ng-repeat="post in posts | orderBy: '-lastEdited'">
+  <li ng-repeat="post in posts track by $index"> <!--orderBy doesn't work with track even if track is last-->
     <a ng-href="{{ '#/blogs/' + blogPostsCtrl.blogName + '/posts/' + post._id }}"> {{ post.title }} - {{ post.lastEdited |  date:'yyyy-MM-dd' }}</a>
-    <a ng-click="blogPostsCtrl.removePost(post._id)">
+    <a ng-click="blogPostsCtrl.removePost(post._id, $index)">
       <span class="glyphicon glyphicon-remove" aria-hidden="true" style="margin-right:7px; margin-top:2px"></span>
     </a>
   </li>

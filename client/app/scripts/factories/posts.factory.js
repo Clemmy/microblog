@@ -56,9 +56,9 @@ angular.module('clientApp')
 
     o.removePostFromIdAndBlogName = function(postId, blogName) {
       var blogId = blogs.getObjectIdFromName(blogName);
-      $http.delete('/api/blogs/'+blogId+'/posts/'+postId).success(function(data){
-        o.posts.pop(data);
-      });
+      //$http.delete('/api/blogs/'+blogId+'/posts/'+postId).success(function(data){
+      //});
+      return $http.delete('/api/blogs/'+blogId+'/posts/'+postId);
     };
 
     return o;

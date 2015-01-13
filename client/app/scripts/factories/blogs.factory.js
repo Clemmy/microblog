@@ -38,12 +38,8 @@ angular.module('clientApp')
     };
 
     o.remove = function(blog) {
-      //o.blogs.getAll(function() {
-      //
-      //});
       var blogId = blog._id;
       return $http.delete('/api/blogs/' + blogId);
-
     };
 
     return o;
