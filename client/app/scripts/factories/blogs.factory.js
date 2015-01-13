@@ -21,16 +21,16 @@ angular.module('clientApp')
       })
     }
 
-    o.getAll = function() {
+    o.getAll = function(callback) {
       return $http.get('/api/blogs').success(function(data){
         angular.copy(data, o.blogs);
+        if (callback) callback();
       });
     };
 
     o.getAllWithPopulatedPosts = function() {
       return $http.get('/api/blogs/all').success(function(data){
         // do nothing
-        console.log('finished get all with populated posts'); //debug
       });
     }
 
@@ -46,6 +46,8 @@ angular.module('clientApp')
         o.blogs.pop(data);
       });
     };
+
+    //o.getAll(); debug
 
     return o;
   }])
