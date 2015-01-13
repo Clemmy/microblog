@@ -45,7 +45,6 @@ angular.module('clientApp')
             o.postContext = requestedPost;
             // get author
             $http.get('/api/blogs/'+blogId).success(function(data) {
-              console.log(data);
               o.postContext.author = data.author;
               postPromise.resolve();
             });

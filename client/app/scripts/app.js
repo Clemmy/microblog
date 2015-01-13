@@ -21,8 +21,10 @@ angular
           templateUrl : 'app/views/main.html',
           controller : 'MainCtrl as mainCtrl',
           resolve : {
-            blogsPromise : ['blogs', function(blogs){
-              return blogs.getAll();
+            blogsPromise : ['blogs', '$q', function(blogs, $q){
+              var blogsPromise = $q.defer();
+              return blogs.getAll(function() { blogsPromise.resolve(); });
+              return blogsPromise.promise;
             }]
           }
         })

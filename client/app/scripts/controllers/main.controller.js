@@ -25,7 +25,6 @@ angular.module('clientApp')
         this.duplicateName = true;
         this.newBlog.name = '';
       }
-
     };
 
     this.deleteBlog = function(blog) {
