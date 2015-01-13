@@ -30,6 +30,7 @@ angular.module('clientApp')
     o.getAllWithPopulatedPosts = function() {
       return $http.get('/api/blogs/all').success(function(data){
         // do nothing
+        console.log('finished get all with populated posts'); //debug
       });
     }
 

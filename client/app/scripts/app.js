@@ -16,8 +16,18 @@ angular
       $urlRouterProvider.otherwise('/');
 
       $stateProvider
+        //.state('blogs', {
+        //  url : '/blogs',
+        //  abstract : true,
+        //  template : '<ui-view/>',
+        //  resolve : {
+        //    blogsPromise : ['blogs', function(blogs){
+        //      return blogs.getAllWithPopulatedPosts();
+        //    }]
+        //  }
+        //})
         .state('home', {
-          url: '/', //temp change to '/' when i remove other state
+          url : '/',
           templateUrl : 'app/views/main.html',
           controller : 'MainCtrl as mainCtrl',
           resolve : {

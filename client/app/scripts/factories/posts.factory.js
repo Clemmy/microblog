@@ -7,6 +7,7 @@ angular.module('clientApp')
     };
 
     o.getAllPostsFromBlog = function(blogName) {
+      console.log('beginning get all posts from blog'); //debug
       var blogId = blogs.getObjectIdFromName(blogName);
       return $http.get('/api/blogs/'+blogId+'/posts').success(function(data){
         angular.copy(data, o.posts);
