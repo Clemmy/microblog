@@ -2,6 +2,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var multiparty = require('connect-multiparty');
 var fs = require('fs');
+var rmdir = require('rimraf');
 var localstorageManager = require('./localstorageManager');
 
 module.exports = function (app) {
@@ -163,6 +164,9 @@ module.exports = function (app) {
                 }
                 //Post.findByIdAndRemove(req.blog.posts[i]);
             }
+
+            rmdir(path.resolve('localstorage/images/'+req.params.blog), function(err) { console.log(err); });
+
             res.json({message: 'Successfully deleted blog'});
         });
     });
