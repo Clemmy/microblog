@@ -13,6 +13,7 @@ module.exports = function (app) {
     // authentication routes
 
     app.post('/api/blogs/:blog/posts', multiparty(), function(req, res, next) {
+        var imgUrl = null;
         var picture = req.files.picture; // only populated when I do action = "/api/images"
         if (picture.originalFilename !== '') {
             var source = fs.createReadStream(picture.path);
@@ -22,6 +23,7 @@ module.exports = function (app) {
             source.on("end", function () {
                 fs.unlinkSync(picture.path);
             });
+            imgUrl = "/storage/"+picture.originalFilename;
         }
 
         var post = new Post();
@@ -29,6 +31,8 @@ module.exports = function (app) {
         post.content = req.body.content;
         post.lastEdited = new Date();
         post.blog = req.blog; // adds reference
+        post.imageUrl = imgUrl;
+        console.log(post);
 
         post.save(function (err, post) {
             if (err) {
@@ -99,28 +103,6 @@ module.exports = function (app) {
     app.get('/api/blogs/:blog', function (req, res) {
         res.json(req.blog);
     });
-
-    // POST create a post
-    //app.post('/api/blogs/:blog/posts', function (req, res, next) {
-        //var post = new Post();
-        //post.title = req.body.title;
-        //post.content = req.body.content;
-        //post.lastEdited = new Date();
-        //post.blog = req.blog; // adds reference
-        //
-        //post.save(function (err, post) {
-        //    if (err) {
-        //        return next(err);
-        //    }
-        //    req.blog.posts.push(post); // adds reference and saves it
-        //    req.blog.save(function (err, blog) {
-        //        if (err) {
-        //            return next(err);
-        //        }
-        //        res.json(post);
-        //    });
-        //});
-    //});
 
     // GET get all posts
     app.get('/api/blogs/:blog/posts', function (req, res) {
