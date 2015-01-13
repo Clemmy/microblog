@@ -6,18 +6,17 @@
 <br>
 <div class="collapse" id="collapseCreateBlogPostForm">
   <br>
-  <form name="createNewPostForm" ng-upload="uploadComplete(content)" action="/api/images" method="post"> <!--enctype="multipart/form-data"-->
+  <form name="createNewPostForm" ng-upload="uploadComplete(content)" action="{{'/api/blogs/'+blogPostsCtrl.blogId+'/posts'}}" method="post"> <!--enctype="multipart/form-data"-->
     <fieldset class="form-group">
-      <input ng-model="blogPostsCtrl.newPost.title" type="text" class="form-control" placeholder="Enter a title for the post." title="PostTitle" name="title" />
+      <input ng-model="newPost.title" type="text" class="form-control" placeholder="Enter a title for the post." title="PostTitle" name="title" />
     </fieldset>
     <fieldset class="form-group">
-      <textarea ng-model="blogPostsCtrl.newPost.content" class="form-control" placeholder="Write content here! There is a 160 character limit." name="content" title="PostContent" maxlength="160"></textarea>
+      <textarea ng-model="newPost.content" class="form-control" placeholder="Write content here! There is a 160 character limit." name="content" title="PostContent" maxlength="160"></textarea>
     </fieldset>
     <fieldset class="form-group">
       <input type="file" name="picture" accept="image/*">
     </fieldset>
     <fieldset class="form-group">
-      <!--<input type="submit" ng-click="blogPostsCtrl.createPostTest()" class="btn btn-primary pull-right" value="Post!" />-->
       <input type="submit" class="btn btn-primary pull-right" value="Post!" />
     </fieldset>
   </form>

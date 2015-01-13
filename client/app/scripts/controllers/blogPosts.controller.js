@@ -1,18 +1,13 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', function ($stateParams, $scope, posts) {
+  .controller('BlogPostsCtrl', ['$stateParams', '$scope', 'posts', 'blogs', function ($stateParams, $scope, posts, blogs) {
 
     this.blogName = $stateParams.blogName;
+    this.blogId = blogs.getObjectIdFromName(this.blogName);
     this.picture = null;
     $scope.posts = posts.posts;
-
-    this.newPost = {};
-    this.createPost = function() {
-      this.newPost.lastEdited = new Date();
-      posts.create(this.newPost, this.blogName);
-      this.newPost = {}; //resets
-    };
+    $scope.newPost = {};
 
     this.removePost = function(postId) {
       posts.removePostFromIdAndBlogName(postId, this.blogName);
@@ -20,25 +15,12 @@ angular.module('clientApp')
 
     // this function is under development
     // TODO: pass in blog and post information to structure the filesystem accordingly and avoid naming conflicts/overwrites
-    this.createPostTest = function createPostTest() {
-      console.log(data);
-      $upload.upload({
-        url: '/api/images',
-        method: 'POST',
-        data: this.newPost,
-        file: this.picture,
-        fileFormDataName: 'picture'
-      }).success(function(data, status, headers, config) {
-        console.log('Image uploaded!');
-      }).error(function(err) {
-        console.error('Error uploading file: ' + err.message || err);
-      });
-
-    }
 
     $scope.uploadComplete = function(content) {
-      console.log('upload complete debug');
-      console.log(content);
+      // manually force update and form refresh
+      posts.posts.push(content);
+      $scope.posts = posts.posts;
+      $scope.newPost = {};
     }
 
 

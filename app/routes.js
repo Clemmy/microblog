@@ -12,9 +12,8 @@ module.exports = function (app) {
     // handle things like api calls
     // authentication routes
 
-    app.post('/api/images', multiparty(), function(req, res) {
+    app.post('/api/blogs/:blog/posts', multiparty(), function(req, res, next) {
         var picture = req.files.picture; // only populated when I do action = "/api/images"
-        //console.log(req.files);
         if (picture.originalFilename !== '') {
             var source = fs.createReadStream(picture.path);
             var destination = fs.createWriteStream(path.resolve('localstorage/images') + '/' + picture.originalFilename); // microblog/localstorage/images
@@ -24,10 +23,25 @@ module.exports = function (app) {
                 fs.unlinkSync(picture.path);
             });
         }
-        // do other processing things
-        console.log(req.body); //debug
 
-        res.json({message: 'done'});
+        var post = new Post();
+        post.title = req.body.title;
+        post.content = req.body.content;
+        post.lastEdited = new Date();
+        post.blog = req.blog; // adds reference
+
+        post.save(function (err, post) {
+            if (err) {
+                return next(err);
+            }
+            req.blog.posts.push(post); // adds reference and saves it
+            req.blog.save(function (err, blog) {
+                if (err) {
+                    return next(err);
+                }
+                res.json(post); // done
+            });
+        });
     });
 
     // GET get all blogs
@@ -87,26 +101,26 @@ module.exports = function (app) {
     });
 
     // POST create a post
-    app.post('/api/blogs/:blog/posts', function (req, res, next) {
-        var post = new Post();
-        post.title = req.body.title;
-        post.content = req.body.content;
-        post.lastEdited = new Date();
-        post.blog = req.blog; // adds reference
-
-        post.save(function (err, post) {
-            if (err) {
-                return next(err);
-            }
-            req.blog.posts.push(post); // adds reference and saves it
-            req.blog.save(function (err, blog) {
-                if (err) {
-                    return next(err);
-                }
-                res.json(post);
-            });
-        });
-    });
+    //app.post('/api/blogs/:blog/posts', function (req, res, next) {
+        //var post = new Post();
+        //post.title = req.body.title;
+        //post.content = req.body.content;
+        //post.lastEdited = new Date();
+        //post.blog = req.blog; // adds reference
+        //
+        //post.save(function (err, post) {
+        //    if (err) {
+        //        return next(err);
+        //    }
+        //    req.blog.posts.push(post); // adds reference and saves it
+        //    req.blog.save(function (err, blog) {
+        //        if (err) {
+        //            return next(err);
+        //        }
+        //        res.json(post);
+        //    });
+        //});
+    //});
 
     // GET get all posts
     app.get('/api/blogs/:blog/posts', function (req, res) {
