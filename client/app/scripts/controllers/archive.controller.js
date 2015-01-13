@@ -5,7 +5,7 @@ angular.module('clientApp')
 
     $scope.blogs = blogs.blogs;
 
-
-  }]);
+  }])
+;
 
 

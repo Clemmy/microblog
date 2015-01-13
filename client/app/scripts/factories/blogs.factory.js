@@ -53,3 +53,4 @@ angular.module('clientApp')
 
     return o;
   }])
+;

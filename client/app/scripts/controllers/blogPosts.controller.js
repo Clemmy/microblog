@@ -5,7 +5,7 @@ angular.module('clientApp')
 
     this.blogName = $stateParams.blogName;
     this.blogId = blogs.getObjectIdFromName(this.blogName);
-    this.picture = null;
+    //this.picture = null;
     $scope.posts = posts.posts;
     $scope.newPost = {};
 
@@ -20,7 +20,7 @@ angular.module('clientApp')
       $scope.newPost = {};
     }
 
-
-  }]);
+  }])
+;
 
 

@@ -9,12 +9,17 @@ angular.module('clientApp')
 
     o.getAllPostsFromBlog = function(blogName) {
       //first fetches blogs from backend so blogs service functions work
-      blogs.getAll(function() { // callback
-        var blogId = blogs.getObjectIdFromName(blogName);
-        return $http.get('/api/blogs/'+blogId+'/posts').success(function(data){
-          angular.copy(data, o.posts);
+      var postsPromise = $q.defer();
+      (function() {
+        blogs.getAll(function () { // callback
+          var blogId = blogs.getObjectIdFromName(blogName);
+          return $http.get('/api/blogs/' + blogId + '/posts').success(function (data) {
+            angular.copy(data, o.posts);
+            postsPromise.resolve();
+          });
         });
-      });
+      })();
+      return postsPromise;
     };
 
     o.create = function(post, blogName) {
