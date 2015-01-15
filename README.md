@@ -12,6 +12,8 @@ cd client
 npm install & bower install
 cd ..
 npm install
+mkdir localstorage 
+mkdir localstorage/images
 ```
 
 # run
