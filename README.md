@@ -9,7 +9,7 @@ A microblog built with the MEAN stack as a part of my training at 10KC.
 
 ```
 cd client
-npm install & bower install
+npm install && bower install
 cd ..
 npm install
 mkdir localstorage 
